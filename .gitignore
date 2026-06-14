@@ -1,0 +1,37 @@
+# Environment variables (RAHASIA - jangan di-upload!)
+.env
+*.env
+.env.local
+.env.*.local
+
+# Backend binary
+barbershop-backend
+backend/barbershop-backend
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Frontend dependencies & build
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Backend dependencies
+backend/vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
