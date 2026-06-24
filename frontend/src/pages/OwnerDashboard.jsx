@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
+import api from '../api/client'
 
 const authFetch = (method, url, data = null) => {
   const token = localStorage.getItem('owner_token')
-  return axios({ method, url: BASE_URL + url, data, headers: { Authorization: `Bearer ${token}` } })
+  return api({ method, url, data, headers: { Authorization: `Bearer ${token}` } })
 }
 
 function OwnerDashboard() {

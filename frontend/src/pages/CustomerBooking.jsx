@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { format, addDays, addWeeks, startOfToday, isBefore } from 'date-fns'
 import { id } from 'date-fns/locale'
 import ServiceCard from '../components/ServiceCard'
 import BarberCard from '../components/BarberCard'
 import TimeSlot from '../components/TimeSlot'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
+import api from '../api/client'
 
 function CustomerBooking() {
   const [step, setStep] = useState(1)
@@ -37,15 +35,15 @@ function CustomerBooking() {
   })
 
   useEffect(() => {
-    axios.get(`${API_URL}/services`).then(r => setServices(r.data)).catch(console.error)
-    axios.get(`${API_URL}/barbers`).then(r => setBarbers(r.data)).catch(console.error)
+    api.get('/services').then(r => setServices(r.data)).catch(console.error)
+    api.get('/barbers').then(r => setBarbers(r.data)).catch(console.error)
   }, [])
 
   useEffect(() => {
     if (!selectedBarber) return
     const load = async () => {
       try {
-        const res = await axios.get(`${API_URL}/slots`, {
+        const res = await api.get('/slots', {
           params: { barber_id: selectedBarber.id, date: selectedDate }
         })
         setAvailableSlots(res.data)
@@ -60,7 +58,7 @@ function CustomerBooking() {
   useEffect(() => {
     const onVisible = () => {
       if (!document.hidden && selectedBarber) {
-        axios.get(`${API_URL}/slots`, {
+        api.get('/slots', {
           params: { barber_id: selectedBarber.id, date: selectedDate }
         }).then(r => { setAvailableSlots(r.data); setSelectedSlot(null) }).catch(console.error)
       }
@@ -80,7 +78,7 @@ function CustomerBooking() {
     if (!customerName || !customerPhone) { alert('Mohon isi nama dan nomor WhatsApp'); return }
     setLoading(true)
     try {
-      const res = await axios.post(`${API_URL}/booking`, {
+      const res = await api.post('/booking', {
         customer_name: customerName,
         customer_phone: customerPhone,
         service_id: selectedService.id,
@@ -93,7 +91,7 @@ function CustomerBooking() {
     } catch (err) {
       if (err.response?.status === 409) {
         alert('Jam sudah dipesan, silakan pilih jam lain')
-        axios.get(`${API_URL}/slots`, { params: { barber_id: selectedBarber.id, date: selectedDate } })
+        api.get('/slots', { params: { barber_id: selectedBarber.id, date: selectedDate } })
           .then(r => setAvailableSlots(r.data)).catch(console.error)
       } else {
         alert('Gagal booking, silakan coba lagi')

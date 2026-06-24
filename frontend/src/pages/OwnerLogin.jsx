@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../api/client'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
+const API_URL = ''
 
 function OwnerLogin() {
   const [username, setUsername] = useState('')
@@ -17,7 +17,7 @@ function OwnerLogin() {
     setError('')
 
     try {
-      const res = await axios.post(`${API_URL}/owner/login`, { username, password })
+      const res = await api.post('/owner/login', { username, password })
       if (res.data.success && res.data.token) {
         localStorage.setItem('owner_token', res.data.token)
         window.location.href = '/owner/dashboard'
