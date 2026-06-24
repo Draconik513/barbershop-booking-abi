@@ -4,7 +4,7 @@ import api from '../api/client'
 
 const authFetch = (method, url, data = null) => {
   const token = localStorage.getItem('owner_token')
-  return api({ method, url, data, headers: { Authorization: `Bearer ${token}` } })
+  return api.request({ method, url, data, headers: { Authorization: `Bearer ${token}` } })
 }
 
 function OwnerDashboard() {
