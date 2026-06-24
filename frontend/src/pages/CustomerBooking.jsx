@@ -6,7 +6,7 @@ import ServiceCard from '../components/ServiceCard'
 import BarberCard from '../components/BarberCard'
 import TimeSlot from '../components/TimeSlot'
 
-const API_URL = 'http://localhost:8080/api'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
 
 function CustomerBooking() {
   const [step, setStep] = useState(1)
