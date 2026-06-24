@@ -5,7 +5,7 @@ import OwnerDashboard from './pages/OwnerDashboard'
 import Navbar from './components/Navbar'
 
 function ProtectedRoute({ children }) {
-  const token = sessionStorage.getItem('owner_token')
+  const token = localStorage.getItem('owner_token')
   if (!token) return <Navigate to="/owner/login" replace />
   return children
 }
