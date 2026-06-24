@@ -19,7 +19,7 @@ function OwnerLogin() {
     try {
       const res = await axios.post(`${API_URL}/owner/login`, { username, password })
       if (res.data.success && res.data.token) {
-        sessionStorage.setItem('owner_token', res.data.token)
+        localStorage.setItem('owner_token', res.data.token)
         window.location.href = '/owner/dashboard'
       } else {
         setError('Login gagal, coba lagi')
