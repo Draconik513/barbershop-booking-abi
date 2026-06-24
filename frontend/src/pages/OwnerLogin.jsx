@@ -80,6 +80,17 @@ function OwnerLogin() {
           >
             {loading ? 'Memproses...' : 'Login'}
           </button>
+
+          <div className="bg-gray-50 rounded-xl p-3 text-xs text-gray-500 text-center space-y-1">
+            <p className="font-semibold text-gray-600 mb-2">Demo Credentials</p>
+            <button
+              type="button"
+              onClick={() => { setUsername('owner'); setPassword('barbershop123') }}
+              className="w-full py-2 border border-dashed border-gray-300 rounded-lg hover:bg-gray-100 transition text-xs text-gray-500"
+            >
+              👆 Klik untuk isi otomatis: <span className="font-mono font-semibold">owner / barbershop123</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>
